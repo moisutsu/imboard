@@ -5,18 +5,18 @@ use image::ImageFormat::Png;
 use tempfile::NamedTempFile;
 use tokio::process::Command;
 
-/// A `copy_image_from_clipboard` converts a clipboard image to image::DynamicImage
+/// A `from_clipboard` converts a clipboard image to image::DynamicImage
 /// # Example
 /// ```rust
 /// use anyhow::Result;
 ///
 /// async fn example() -> Result<()> {
-///     let img = imboard::copy_image_from_clipboard().await?;
+///     let img = imboard::copy_image::from_clipboard().await?;
 ///     Ok(())
 /// }
 /// ```
 #[cfg(target_os = "macos")]
-pub async fn copy_image_from_clipboard() -> Result<DynamicImage> {
+pub async fn from_clipboard() -> Result<DynamicImage> {
     // Create a temporary file for storing clipboard image
     let temp_file = NamedTempFile::new()?;
     let temp_file_path = temp_file.path().to_str().unwrap();
@@ -43,23 +43,23 @@ pub async fn copy_image_from_clipboard() -> Result<DynamicImage> {
 }
 
 #[cfg(not(target_os = "macos"))]
-pub fn copy_image_from_clipboard() -> Result<()> {
+pub fn from_clipboard() -> Result<()> {
     Err("This crate does not support any OS other than macOS")
 }
 
-/// A `copy_image_to_clipboard` copies the argument img to the clipboard
+/// A `to_clipboard` copies the argument img to the clipboard
 /// # Example
 /// ```rust
 /// use anyhow::Result;
 ///
 /// async fn example() -> Result<()> {
 ///     let img = image::open("path/to/image")?;
-///     imboard::copy_image_to_clipboard(img).await?;
+///     imboard::copy_image::to_clipboard(img).await?;
 ///     Ok(())
 /// }
 /// ```
 #[cfg(target_os = "macos")]
-pub async fn copy_image_to_clipboard(img: DynamicImage) -> Result<()> {
+pub async fn to_clipboard(img: DynamicImage) -> Result<()> {
     // Create a temporary file to save image to the clipboard
     let temp_file = NamedTempFile::new()?;
     let temp_file_path = temp_file.path().to_str().unwrap();
@@ -84,6 +84,6 @@ pub async fn copy_image_to_clipboard(img: DynamicImage) -> Result<()> {
 }
 
 #[cfg(not(target_os = "macos"))]
-pub fn copy_image_to_clipboard() -> Result<()> {
+pub fn to_clipboard() -> Result<()> {
     Err("This crate does not support any OS other than macOS")
 }

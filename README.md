@@ -16,7 +16,7 @@ use anyhow::Result;
 
 #[tokio::main]
 async fn main() -> Result<()> {
-    let img = imboard::copy_image_from_clipboard().await?;
+    let img = imboard::copy_image::from_clipboard().await?;
     img.to_rgba().save("clipboard.png").unwrap();
     Ok(())
 }
@@ -29,7 +29,7 @@ use anyhow::Result;
 #[tokio::main]
 async fn main() -> Result<()> {
     let img = image::open("examples/images/copy.png")?;
-    imboard::copy_image_to_clipboard(img).await?;
+    imboard::copy_image::to_clipboard(img).await?;
     Ok(())
 }
 ```

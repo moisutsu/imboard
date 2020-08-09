@@ -1,3 +1,1 @@
-pub mod imboard;
-
-pub use imboard::*;
+pub mod copy_image;
