@@ -9,6 +9,7 @@ use image::DynamicImage;
 use tempfile::NamedTempFile;
 use tokio::process::Command;
 
+/// A `copy_image_from_clipboard` converts a clipboard image to image::DynamicImage and returns it.
 #[cfg(target_os = "macos")]
 pub async fn copy_image_from_clipboard() -> Result<DynamicImage> {
     // Create a temporary file for storing clipboard image
