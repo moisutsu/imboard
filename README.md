@@ -1,5 +1,9 @@
 # Imboard
 
+[![Crates.io](https://img.shields.io/crates/v/imboard.svg)](https://crates.io/crates/imboard)
+[![Documentation](https://docs.rs/imboard/badge.svg)](https://docs.rs/imboard)
+![License](https://img.shields.io/crates/l/imboard.svg)
+
 This is a crate that allows you to easily exchange images with the clipboard.
 
 Currently, only macOS is supported.
