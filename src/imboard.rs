@@ -1,8 +1,3 @@
-extern crate anyhow;
-extern crate image;
-extern crate tempfile;
-extern crate tokio;
-
 use anyhow::Result;
 use image::io::Reader;
 use image::DynamicImage;
