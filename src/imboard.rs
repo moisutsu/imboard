@@ -10,12 +10,12 @@ use tokio::process::Command;
 pub async fn copy_image_from_clipboard() -> Result<DynamicImage> {
     // Create a temporary file for storing clipboard image
     let temp_file = NamedTempFile::new()?;
-    let temp_file_name = temp_file.path().to_str().unwrap();
+    let temp_file_path = temp_file.path().to_str().unwrap();
 
     //  Copy clipboard image to a temporary file
     let script_to_copy = &format!(
         "write (the clipboard as «class PNGf») to (open for access \"{}\" with write permission)",
-        temp_file_name
+        temp_file_path
     );
     Command::new("osascript")
         .args(&["-e", script_to_copy])
@@ -23,7 +23,7 @@ pub async fn copy_image_from_clipboard() -> Result<DynamicImage> {
         .await?;
 
     // Convert image from temporary file to <image::DynamicImage>
-    let img = Reader::open(temp_file_name)?
+    let img = Reader::open(temp_file_path)?
         .with_guessed_format()?
         .decode()?;
 
@@ -43,15 +43,15 @@ pub fn copy_image_from_clipboard() -> Result<()> {
 pub async fn copy_image_to_clipboard(img: DynamicImage) -> Result<()> {
     // Create a temporary file to save image to the clipboard
     let temp_file = NamedTempFile::new()?;
-    let temp_file_name = temp_file.path().to_str().unwrap();
+    let temp_file_path = temp_file.path().to_str().unwrap();
 
     // Save the argument img to a temporary file as png
-    img.save_with_format(temp_file_name, Png).unwrap();
+    img.save_with_format(temp_file_path, Png).unwrap();
 
     // Copy temporary file image to the clipboard
     let script_to_copy = &format!(
         "set the clipboard to (read \"{}\" as TIFF picture)",
-        temp_file_name
+        temp_file_path
     );
     Command::new("osascript")
         .args(&["-e", script_to_copy])
