@@ -40,7 +40,7 @@ pub async fn copy_image_from_clipboard() -> Result<DynamicImage> {
 
 #[cfg(not(target_os = "macos"))]
 pub fn copy_image_from_clipboard() -> Result<()> {
-    Ok(())
+    Err("This crate does not support any OS other than macOS")
 }
 
 /// A `copy_image_to_clipboard` copies the argument img to the clipboard
@@ -71,5 +71,5 @@ pub async fn copy_image_to_clipboard(img: DynamicImage) -> Result<()> {
 
 #[cfg(not(target_os = "macos"))]
 pub fn copy_image_to_clipboard() -> Result<()> {
-    Ok(())
+    Err("This crate does not support any OS other than macOS")
 }
