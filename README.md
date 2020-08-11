@@ -10,7 +10,7 @@ Currently, only macOS is supported.
 
 # Example
 
-Save the clipboard image to a file as `clipboard.png`
+Save a clipboard image to a file as `clipboard.png`
 ```rust
 use anyhow::Result;
 
@@ -22,7 +22,7 @@ async fn main() -> Result<()> {
 }
 ```
 
-Copy a file's image to the clipboard
+Copy a file image to the clipboard
 ```rust
 use anyhow::Result;
 

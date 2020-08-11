@@ -5,7 +5,7 @@ use image::ImageFormat::Png;
 use tempfile::NamedTempFile;
 use tokio::process::Command;
 
-/// A `from_clipboard` converts a clipboard image to image::DynamicImage
+/// Converts a clipboard image to image::DynamicImage
 /// # Example
 /// ```rust
 /// use anyhow::Result;
@@ -31,7 +31,7 @@ pub async fn from_clipboard() -> Result<DynamicImage> {
         .spawn()?
         .await?;
 
-    // Convert image from temporary file to <image::DynamicImage>
+    // Convert temporary file image to image::DynamicImage
     let img = Reader::open(temp_file_path)?
         .with_guessed_format()?
         .decode()?;
@@ -47,7 +47,7 @@ pub fn from_clipboard() -> Result<()> {
     Err("This crate does not support any OS other than macOS")
 }
 
-/// A `to_clipboard` copies the argument img to the clipboard
+/// Copies the argument img to the clipboard
 /// # Example
 /// ```rust
 /// use anyhow::Result;
