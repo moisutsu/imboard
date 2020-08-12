@@ -43,7 +43,7 @@ pub async fn from_clipboard() -> Result<DynamicImage> {
 }
 
 #[cfg(not(target_os = "macos"))]
-pub fn from_clipboard() -> Result<()> {
+pub fn from_clipboard() -> Result<DynamicImage> {
     Err("This crate does not support any OS other than macOS")
 }
 
