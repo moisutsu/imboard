@@ -69,7 +69,7 @@ pub async fn to_clipboard(img: DynamicImage) -> Result<()> {
 
     // Copy temporary file image to the clipboard
     let script_to_copy = &format!(
-        "set the clipboard to (read \"{}\" as TIFF picture)",
+        "set the clipboard to (read \"{}\" as «class PNGf»)",
         temp_file_path
     );
     Command::new("osascript")
