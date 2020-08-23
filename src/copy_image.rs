@@ -1,3 +1,5 @@
+#[cfg(not(target_os = "macos"))]
+use anyhow::anyhow;
 use anyhow::Result;
 use image::io::Reader;
 use image::DynamicImage;
@@ -44,7 +46,9 @@ pub async fn from_clipboard() -> Result<DynamicImage> {
 
 #[cfg(not(target_os = "macos"))]
 pub fn from_clipboard() -> Result<DynamicImage> {
-    Err("This crate does not support any OS other than macOS")
+    Err(anyhow!(
+        "This crate does not support any OS other than macOS"
+    ))
 }
 
 /// Copies the argument img to the clipboard
@@ -85,5 +89,7 @@ pub async fn to_clipboard(img: DynamicImage) -> Result<()> {
 
 #[cfg(not(target_os = "macos"))]
 pub fn to_clipboard() -> Result<()> {
-    Err("This crate does not support any OS other than macOS")
+    Err(anyhow!(
+        "This crate does not support any OS other than macOS"
+    ))
 }
