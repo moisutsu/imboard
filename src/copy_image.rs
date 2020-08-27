@@ -17,8 +17,16 @@ use tokio::process::Command;
 ///     Ok(())
 /// }
 /// ```
-#[cfg(target_os = "macos")]
 pub async fn from_clipboard() -> Result<DynamicImage> {
+    #[cfg(target_os = "macos")]
+    return from_clipboard_for_darwin().await;
+
+    #[cfg(not(target_os = "macos"))]
+    return from_clipboard_for_linux().await;
+}
+
+#[cfg(target_os = "macos")]
+async fn from_clipboard_for_darwin() -> Result<DynamicImage> {
     // Create a temporary file for storing clipboard image
     let temp_file = NamedTempFile::new()?;
     let temp_file_path = temp_file.path().to_str().unwrap();
@@ -45,7 +53,7 @@ pub async fn from_clipboard() -> Result<DynamicImage> {
 }
 
 #[cfg(not(target_os = "macos"))]
-pub async fn from_clipboard() -> Result<DynamicImage> {
+async fn from_clipboard_for_linux() -> Result<DynamicImage> {
     Err(anyhow!(
         "This crate does not support any OS other than macOS"
     ))
@@ -62,8 +70,16 @@ pub async fn from_clipboard() -> Result<DynamicImage> {
 ///     Ok(())
 /// }
 /// ```
-#[cfg(target_os = "macos")]
 pub async fn to_clipboard(img: DynamicImage) -> Result<()> {
+    #[cfg(target_os = "macos")]
+    return to_clipboard_for_darwin(img).await;
+
+    #[cfg(not(target_os = "macos"))]
+    return to_clipboard_for_linux(img).await;
+}
+
+#[cfg(target_os = "macos")]
+async fn to_clipboard_for_darwin(img: DynamicImage) -> Result<()> {
     // Create a temporary file to save image to the clipboard
     let temp_file = NamedTempFile::new()?;
     let temp_file_path = temp_file.path().to_str().unwrap();
@@ -88,7 +104,7 @@ pub async fn to_clipboard(img: DynamicImage) -> Result<()> {
 }
 
 #[cfg(not(target_os = "macos"))]
-pub async fn to_clipboard(_: DynamicImage) -> Result<()> {
+async fn to_clipboard_for_linux(_: DynamicImage) -> Result<()> {
     Err(anyhow!(
         "This crate does not support any OS other than macOS"
     ))
