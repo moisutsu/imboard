@@ -2,7 +2,7 @@
 name = "imboard"
 version = "0.2.6"
 authors = ["moisutsu <moisutsu@gmail.com>"]
-edition = "2018"
+edition = "2021"
 license = "MIT"
 description = "Exchange images with the clipboard."
 repository = "https://github.com/moisutsu/imboard"
